@@ -1,3 +1,6 @@
+# Secrets
+.secrets/
+
 # Node
 node_modules/
 
@@ -11,6 +14,13 @@ target/
 release.properties
 pom.xml.releaseBackup
 pom.xml.tag
+
+# Gradle
+.gradle
+/local.properties
+/build
+/captures
+.externalNativeBuild
 
 # Intellij
 .idea/
