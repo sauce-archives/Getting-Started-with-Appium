@@ -17,7 +17,6 @@ public class SimpleSeleniumTest
 {
 	@Rule
 	public TestName testName = new TestName();
-	Boolean testPassed;
 	
 	URL remoteUrl;
 	DesiredCapabilities capabilities;

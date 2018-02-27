@@ -1,10 +1,10 @@
 import com.saucelabs.saucerest.SauceREST;
+import io.appium.java_client.AppiumDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
-
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -13,31 +13,33 @@ import java.net.URL;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-public class SimpleSeleniumTest
+public class SimpleAppiumWebTestIOS
 {
 	@Rule
 	public TestName testName = new TestName();
 	
 	URL remoteUrl;
 	DesiredCapabilities capabilities;
-	RemoteWebDriver driver;
+	AppiumDriver driver;
 	
 	String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
-	
 	String SAUCE_URL = "https://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:443/wd/hub"
 			.replace("SAUCE_USERNAME", SAUCE_USERNAME)
 			.replace("SAUCE_ACCESS_KEY", SAUCE_ACCESS_KEY);
 	
-	String SELENIUM_PLATFORM = "Windows 10";
-	String SELENIUM_BROWSER = "Chrome";
+	String PLATFORM_NAME = "iOS";
+	String PLATFORM_VERSION = "11.2";
+	String DEVICE_NAME = "iPhone Simulator";
+	String BROWSER_NAME = "Safari";
+	String APPIUM_VERSION = "1.7.2";
 	
 	@Before
 	public void setup() throws MalformedURLException
 	{
 		remoteUrl = getRemoteUrl();
-		capabilities = getDesiredCapabilities();
-		driver = new RemoteWebDriver(remoteUrl, capabilities);
+		capabilities = getAppiumDesiredCapabilities();
+		driver = new AppiumDriver(remoteUrl, capabilities);
 	}
 	
 	@Test
@@ -45,7 +47,6 @@ public class SimpleSeleniumTest
 	{
 		driver.get("https://saucelabs.com");
 		String title = driver.getTitle();
-		
 		assertThat(title).contains("Sauce Labs");
 	}
 	
@@ -65,23 +66,25 @@ public class SimpleSeleniumTest
 		return remoteUrl;
 	}
 	
-	public DesiredCapabilities getDesiredCapabilities()
+	public DesiredCapabilities getAppiumDesiredCapabilities()
 	{
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		
-		capabilities.setCapability("platform", SELENIUM_PLATFORM);
-		capabilities.setCapability("browserName", SELENIUM_BROWSER);
+		capabilities.setCapability("platformName", PLATFORM_NAME);
+		capabilities.setCapability("platformVersion", PLATFORM_VERSION);
+		capabilities.setCapability("deviceName", DEVICE_NAME);
+		capabilities.setCapability("browserName", BROWSER_NAME);
+		capabilities.setCapability("appiumVersion", APPIUM_VERSION);
 		capabilities.setCapability("name", getTestName());
-		
 		return capabilities;
 	}
 	
 	public String getTestName()
 	{
 		return this.getClass().getSimpleName()
-				+ " on " + this.testName.getMethodName()
-				+ " with " + SELENIUM_PLATFORM
-				+ " " + SELENIUM_BROWSER;
+				+ " " + this.testName.getMethodName()
+				+ " " + PLATFORM_NAME
+				+ " " + PLATFORM_VERSION
+				+ " " + BROWSER_NAME;
 	}
 	
 	public void updateTestStatus(Boolean passed)
