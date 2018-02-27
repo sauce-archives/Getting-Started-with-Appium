@@ -1,0 +1,21 @@
+directory=".env"
+files=`find $directory -type f`
+
+for file in $files; do
+
+	if [[ $file == ".env/setup" ]]; then
+		echo "skipping setup"
+		continue
+	fi
+
+	source $file;
+	
+	key=`basename $file`
+	value=`printenv $key`
+
+	echo "setting $key=$value"
+	if [[ $(uname) == "Darwin" ]]; then 
+		echo launchctl setenv $key $value
+	fi
+done
+
