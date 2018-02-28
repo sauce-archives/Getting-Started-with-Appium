@@ -35,6 +35,12 @@ To create this test:
 4. Run your test.
 
 
+For extra credit, change your test to run on Android.  
+Note that the browserName for Android is "chrome" for Android 6+ 
+and "browser" for older Android devices.
+
+
+
 
 
 
