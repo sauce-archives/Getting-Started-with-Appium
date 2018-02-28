@@ -1,22 +1,26 @@
 # Getting Started with Appium
 
-## Local Appium Native App Test
+## 6 - Testing Mobile Apps on Sauce Labs
 
-Now that we can run web tests using Appium 
-both locally and on Sauce Labs, we're ready for the next step.
+To test an app in Sauce Labs 
+you need to specify a URL for the app.
 
-Running tests on Native Applications.
+It either needs to be a public URL
+or you can use Sauce Storage
+to keep your (untested) app private:
 
-You need to upload your app to the Emulator/Simulator
-and you do that by specifying the filename in DesiredCapabilities
+Use the Sauce REST API to upload the file
+to Sauce Storage:
 
-For Android:
+    File file = new File("HelloSauceAndroid.apk");
+    SauceREST api = new SauceREST(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
+	api.uploadFile(file);
+		
+See also https://wiki.saucelabs.com/display/DOCS/Uploading+Mobile+Applications+to+Sauce+Storage+for+Testing
 
-    capabilities.setCapability("app", "/path/to/yourApp.apk");
+and then include the `sauce-storage` url
+in DesiredCapabilities
 
-or for IOS:
+    capabilities.setCapability("app", "sauce-storage:HelloSauceAndroid.apk");
+    
 
-    capabilities.setCapability("app", "/path/to/yourApp.zip");
-        
-For IOS you can specify either the folder yourApp.app or zip it up.
- 
