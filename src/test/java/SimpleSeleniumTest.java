@@ -17,18 +17,18 @@ public class SimpleSeleniumTest
 {
 	@Rule
 	public TestName testName = new TestName();
-	Boolean testPassed;
 	
 	URL remoteUrl;
 	DesiredCapabilities capabilities;
 	RemoteWebDriver driver;
-	
+
 	String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
+
 	String SAUCE_URL = "https://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:443/wd/hub"
 			.replace("SAUCE_USERNAME", SAUCE_USERNAME)
 			.replace("SAUCE_ACCESS_KEY", SAUCE_ACCESS_KEY);
-	
+
 	String SELENIUM_PLATFORM = "Windows 10";
 	String SELENIUM_BROWSER = "Chrome";
 	
@@ -70,6 +70,7 @@ public class SimpleSeleniumTest
 		capabilities.setCapability("platform", SELENIUM_PLATFORM);
 		capabilities.setCapability("browserName", SELENIUM_BROWSER);
 		capabilities.setCapability("name", getTestName());
+
 		return capabilities;
 	}
 	
