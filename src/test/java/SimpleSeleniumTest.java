@@ -25,10 +25,6 @@ public class SimpleSeleniumTest
 	String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
 
-	String SAUCE_URL = "https://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:443/wd/hub"
-			.replace("SAUCE_USERNAME", SAUCE_USERNAME)
-			.replace("SAUCE_ACCESS_KEY", SAUCE_ACCESS_KEY);
-
 	String SELENIUM_PLATFORM = "Windows 10";
 	String SELENIUM_BROWSER = "Chrome";
 	
@@ -60,7 +56,14 @@ public class SimpleSeleniumTest
 	
 	public URL getRemoteUrl() throws MalformedURLException
 	{
-		URL remoteUrl = new URL(SAUCE_URL);
+        if (SAUCE_USERNAME == null) throw new RuntimeException("SAUCE_USERNAME is not set");
+        if (SAUCE_ACCESS_KEY == null) throw new RuntimeException("SAUCE_ACCESS_KEY is not set");
+
+        String SAUCE_URL = "https://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:443/wd/hub"
+                .replace("SAUCE_USERNAME", SAUCE_USERNAME)
+                .replace("SAUCE_ACCESS_KEY", SAUCE_ACCESS_KEY);
+
+        URL remoteUrl = new URL(SAUCE_URL);
 		return remoteUrl;
 	}
 	
