@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,20 +21,24 @@ public class SimpleAppiumWebTestIOS
 	URL remoteUrl;
 	DesiredCapabilities capabilities;
 	AppiumDriver driver;
-
+	
 	String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
-
+	String SAUCE_URL = "https://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:443/wd/hub"
+			.replace("SAUCE_USERNAME", SAUCE_USERNAME)
+			.replace("SAUCE_ACCESS_KEY", SAUCE_ACCESS_KEY);
+	
 	String PLATFORM_NAME = "iOS";
 	String PLATFORM_VERSION = "11.2";
 	String DEVICE_NAME = "iPhone Simulator";
-	String SELENIUM_BROWSER = "Safari";
+	String BROWSER_NAME = "Safari";
+	String APPIUM_VERSION = "1.7.2";
 	
 	@Before
 	public void setup() throws MalformedURLException
 	{
 		remoteUrl = getRemoteUrl();
-		capabilities = getDesiredCapabilities();
+		capabilities = getAppiumDesiredCapabilities();
 		driver = new AppiumDriver(remoteUrl, capabilities);
 	}
 	
@@ -57,26 +62,19 @@ public class SimpleAppiumWebTestIOS
 	
 	public URL getRemoteUrl() throws MalformedURLException
 	{
-        if (SAUCE_USERNAME == null) throw new RuntimeException("SAUCE_USERNAME is not set");
-        if (SAUCE_ACCESS_KEY == null) throw new RuntimeException("SAUCE_ACCESS_KEY is not set");
-
-        String SAUCE_URL = "https://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:443/wd/hub"
-                .replace("SAUCE_USERNAME", SAUCE_USERNAME)
-                .replace("SAUCE_ACCESS_KEY", SAUCE_ACCESS_KEY);
-
-        URL remoteUrl = new URL(SAUCE_URL);
+		URL remoteUrl = new URL(SAUCE_URL);
 		return remoteUrl;
 	}
 	
-	public DesiredCapabilities getDesiredCapabilities()
+	public DesiredCapabilities getAppiumDesiredCapabilities()
 	{
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("platformName", PLATFORM_NAME);
 		capabilities.setCapability("platformVersion", PLATFORM_VERSION);
 		capabilities.setCapability("deviceName", DEVICE_NAME);
-		capabilities.setCapability("browserName", SELENIUM_BROWSER);
+		capabilities.setCapability("browserName", BROWSER_NAME);
+		capabilities.setCapability("appiumVersion", APPIUM_VERSION);
 		capabilities.setCapability("name", getTestName());
-
 		return capabilities;
 	}
 	
@@ -85,7 +83,8 @@ public class SimpleAppiumWebTestIOS
 		return this.getClass().getSimpleName()
 				+ " " + this.testName.getMethodName()
 				+ " " + PLATFORM_NAME
-				+ " " + PLATFORM_VERSION;
+				+ " " + PLATFORM_VERSION
+				+ " " + BROWSER_NAME;
 	}
 	
 	public void updateTestStatus(Boolean passed)
