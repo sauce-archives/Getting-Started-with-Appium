@@ -19,15 +19,19 @@ To create this test:
 1. Copy SimpleSeleniumTest.java to SimpleAppiumWebTest.java
 2. Change the WebDriver to AppiumDriver.
 
+    ```
     AppiumDriver driver = new AppiumDriver(remoteUrl, capabilities)
+    ```
 
 3. Set Appium specific capabilities:
 
+    ```
     capabilities.setCapability("platformName", "iOS");
     capabilities.setCapability("platformVersion", "11.2");
     capabilities.setCapability("deviceName", "iPhone Simulator");
     capabilities.setCapability("browserName", "Safari");
-    
+    ```    
+
 4. Run your test.
 
 
