@@ -13,7 +13,11 @@ First install Appium server
     
     npm install -g appium
     
-Then specify in your test to use your local Appium server instead of Sauce Labs
+ Then start appium server
+ 
+    appium
+    
+In your test, specify in your test to use your local Appium server instead of Sauce Labs
 
     remoteUrl = "http://localhost:4723/wd/host
 
@@ -43,3 +47,6 @@ You can specify the chromedriver version when you build appium server with:
     
 This is the version that happens to work with Chrome 58, which is installed on Android 8.0
  
+
+
+
