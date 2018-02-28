@@ -8,11 +8,16 @@
     <artifactId>getting-started-with-appium</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -31,7 +36,6 @@
         </plugins>
     </build>
 
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -39,11 +43,31 @@
             <version>4.12</version>
         </dependency>
         <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
+            <artifactId>selenium-java</artifactId>
             <version>3.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>5.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>saucerest</artifactId>
+            <version>1.0.35</version>
+        </dependency>
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>sauce_junit</artifactId>
+            <version>2.1.20</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
 
 </project>
