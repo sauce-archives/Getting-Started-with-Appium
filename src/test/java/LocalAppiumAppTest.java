@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -24,9 +25,9 @@ public class LocalAppiumAppTest
 	AndroidDriver<MobileElement> driver;
 
 	String PLATFORM_NAME = "Android";
-	String PLATFORM_VERSION = "8.0";
-	String DEVICE_NAME = "Android_Emulator";
-	String MOBILE_APP = "HelloSauceAndroid.apk";
+	String PLATFORM_VERSION = "8.1";
+	String DEVICE_NAME = "Nexus 5X API 27";
+	String MOBILE_APP = "/Users/joshuagrant/VodQA.apk";
 
 	String APPIUM_URL = "http://localhost:4723/wd/hub";
 
@@ -39,25 +40,26 @@ public class LocalAppiumAppTest
 	}
 	
 	@Test
-	public void navigateApp()
-	{
-		String messageBefore = driver.findElementById("com.saucelabs.hellosauceandroid:id/message").getText();
-		driver.findElementByAccessibilityId("Dashboard").click();
-		String messageAfter = driver.findElementById("com.saucelabs.hellosauceandroid:id/message").getText();
-	
-		System.out.println("messageBefore: "+ messageBefore);
-		
-		System.out.println("messageAfter: "+ messageAfter);
-		assertThat(messageBefore).isNotEqualTo(messageAfter);
+	public void navigateApp() throws InterruptedException {
+		Thread.sleep(3000);
+
+		driver.findElementByAccessibilityId("username").sendKeys("bad");
+		driver.findElementByAccessibilityId("password").sendKeys("bad");
+		driver.hideKeyboard();
+		driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"login\"]/android.widget.Button").click();
+
+		String actual = driver.findElementById("android:id/message").getText();
+		String expected = "Invalid";
+
+		assertThat(actual).contains(expected);
+
+		driver.findElementById("android:id/button1").click();
 	}
 	
 	@After
 	public void teardown()
 	{
-		if (driver != null)
-		{
-			driver.quit();
-		}
+		driver.quit();
 	}
 	
 	public URL getRemoteUrl() throws MalformedURLException
@@ -72,14 +74,8 @@ public class LocalAppiumAppTest
 		capabilities.setCapability("platformName", PLATFORM_NAME);
 		capabilities.setCapability("platformVersion", PLATFORM_VERSION);
 		capabilities.setCapability("deviceName", DEVICE_NAME);
-		capabilities.setCapability("app", getApp(MOBILE_APP).getAbsolutePath());
+		capabilities.setCapability("app", MOBILE_APP);
 
 		return capabilities;
-	}
-	
-	public File getApp(String appName)
-	{
-		ClassLoader classLoader = getClass().getClassLoader();
-		return new File(classLoader.getResource(appName).getFile());
 	}
 }
