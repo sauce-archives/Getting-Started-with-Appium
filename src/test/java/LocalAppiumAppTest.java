@@ -27,7 +27,7 @@ public class LocalAppiumAppTest
 	String PLATFORM_NAME = "Android";
 	String PLATFORM_VERSION = "8.1";
 	String DEVICE_NAME = "Nexus 5X API 27";
-	String MOBILE_APP = "/Users/joshuagrant/VodQA.apk";
+	String MOBILE_APP = "sauce-storage:vodqa.apk";
 
 	String APPIUM_URL = "http://localhost:4723/wd/hub";
 

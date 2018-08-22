@@ -32,16 +32,13 @@ public class SauceAppiumAppTest
 			.replace("SAUCE_ACCESS_KEY", SAUCE_ACCESS_KEY);
 	
 	String PLATFORM_NAME = "Android";
-	String PLATFORM_VERSION = "6.0";
-	String DEVICE_NAME = "Android Emulator";
-	String MOBILE_APP = "HelloSauceAndroid.apk";
+	String PLATFORM_VERSION = "7.1";
+	String DEVICE_NAME = "Samsung Galaxy S8 WQHD GoogleAPI Emulator";
+	String MOBILE_APP = "vodqa.apk";
 	
 	@Before
 	public void setup() throws IOException
 	{
-		File file = getApp(MOBILE_APP);
-		uploadToSauceStorage(file);
-		
 		remoteUrl = getRemoteUrl();
 		capabilities = getDesiredCapabilities();
 		driver = new AndroidDriver<MobileElement>(remoteUrl, capabilities);
@@ -50,23 +47,21 @@ public class SauceAppiumAppTest
 	@Test
 	public void navigateApp()
 	{
-		String messageBefore = driver.findElementById("com.saucelabs.hellosauceandroid:id/message").getText();
-		driver.findElementByAccessibilityId("Dashboard").click();
-		String messageAfter = driver.findElementById("com.saucelabs.hellosauceandroid:id/message").getText();
-	
-		System.out.println("messageBefore: "+ messageBefore);
-		
-		System.out.println("messageAfter: "+ messageAfter);
-		assertThat(messageBefore).isNotEqualTo(messageAfter);
+		driver.findElementByAccessibilityId("username").sendKeys("bad");
+		driver.findElementByAccessibilityId("password").sendKeys("bad");
+		driver.hideKeyboard();
+		driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"login\"]/android.widget.Button").click();
+
+		String actual = driver.findElementById("android:id/message").getText();
+		String expected = "Invalid";
+
+		assertThat(actual).contains(expected);
 	}
 	
 	@After
 	public void teardown()
 	{
-		if (driver != null)
-		{
-			driver.quit();
-		}
+		driver.quit();
 	}
 	
 	public URL getRemoteUrl() throws MalformedURLException
@@ -87,18 +82,6 @@ public class SauceAppiumAppTest
 		return capabilities;
 	}
 	
-	public void uploadToSauceStorage(File file) throws IOException
-	{
-		SauceREST api = new SauceREST(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
-		api.uploadFile(file);
-	}
-	
-	public File getApp(String appName)
-	{
-		ClassLoader classLoader = getClass().getClassLoader();
-		return new File(classLoader.getResource(appName).getFile());
-	}
-	
 	
 	public String getTestName()
 	{
@@ -106,20 +89,5 @@ public class SauceAppiumAppTest
 				+ " " + this.testName.getMethodName()
 				+ " " + PLATFORM_NAME
 				+ " " + PLATFORM_VERSION;
-	}
-	
-	public void updateTestStatus(Boolean passed)
-	{
-		SauceREST api = new SauceREST(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
-		String sessionId = driver.getSessionId().toString();
-		
-		if (passed)
-		{
-			api.jobPassed(sessionId);
-		}
-		else
-		{
-			api.jobFailed(sessionId);
-		}
 	}
 }
