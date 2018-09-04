@@ -2,11 +2,10 @@
 import com.saucelabs.saucerest.SauceREST;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -20,6 +19,21 @@ public class SauceAppiumAppTest
 {
 	@Rule
 	public TestName testName = new TestName();
+
+	@Rule
+	public TestWatcher watcher = new TestWatcher() {
+		@Override
+		protected void succeeded(Description description) {
+			driver.executeScript("sauce:job-result=passed");
+			super.succeeded(description);
+		}
+
+		@Override
+		protected void failed(Throwable e, Description description) {
+			driver.executeScript("sauce:job-result=failed");
+			super.failed(e, description);
+		}
+	};
 	
 	URL remoteUrl;
 	DesiredCapabilities capabilities;
