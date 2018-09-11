@@ -16,7 +16,7 @@ which acts as a server, relaying the commands between Appium
 and the native automation on a mobile device.
 
 To create this test:
-1. Copy https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/SimpleAppiumWebTest.java to https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/SimpleAppiumWebTest.java)
+1. Copy https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/SimpleAppiumWebTest.java to https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/SimpleAppiumWebTest.java
 2. Change the WebDriver to AppiumDriver.
 
     ```
