@@ -31,8 +31,8 @@ Note the deviceName (and possibly platformVersion) may be different
 on your local emulator/simulator than what is available in Sauce Labs.
 
 Check out the examples at:
-LocalAppiumWebTestIOS.java
-LocalAppiumWebTestAndroid.java
+https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/LocalAppiumWebTestIOS.java
+https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/LocalAppiumWebTestAndroid.java
 
 One more thing to note:
 The version of Chrome on Android devices may be incompatible 
