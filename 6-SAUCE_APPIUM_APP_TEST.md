@@ -23,4 +23,4 @@ in DesiredCapabilities
 
     capabilities.setCapability("app", "sauce-storage:HelloSauceAndroid.apk");
     
-    You can see an example script here: https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/SauceAppiumAppTest.java
+You can see an example script here: https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/SauceAppiumAppTest.java
