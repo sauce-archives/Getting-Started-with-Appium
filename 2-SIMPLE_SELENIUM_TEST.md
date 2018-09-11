@@ -9,7 +9,7 @@ you're ready to get started.
 To begin, create a simple Selenium script and run it against Sauce Labs.
 See the following example:
 
-SimpleSeleniumTest.java
+https://github.com/saucelabs-training/Getting-Started-with-Appium/blob/master/src/test/java/SimpleAppiumWebTest.java
 
 Note that it needs you to set SAUCE_USERNAME and SAUCE_ACCESS_KEY.
 
